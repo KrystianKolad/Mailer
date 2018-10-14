@@ -1,6 +1,8 @@
-POST http://localhost:5000/api/SendMail
+POST http://localhost:5000/api/SayHello
 Content-Type: application/json
 
 {
-    "name":"Krystian"
+    "to":"krystian@kolad.pl",
+    "body":"Body",
+    "subject":"subject"
 }
