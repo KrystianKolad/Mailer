@@ -16,3 +16,7 @@ variable "appName" {
     type = "string"
     default = "MailerAppTest"
 }
+
+variable "sendGridApiKey" {
+    type = "string"
+}

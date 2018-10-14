@@ -40,5 +40,8 @@ resource "azurerm_function_app" "MailerApp" {
     app_service_plan_id = "${azurerm_app_service_plan.MailerServicePlan.id}"
     storage_connection_string = "${azurerm_storage_account.MailerStorage.primary_connection_string}"
     version = "~2"
+    app_settings {
+        "SendGridApiKey" = "${var.sendGridApiKey}"
+    }
 }
 
