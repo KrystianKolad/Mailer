@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "MailerGroup" {
 }
 
 resource "azurerm_storage_account" "MailerStorage" {
-    name = "mailerstoragetest" //because mailerstorage already taken
+    name = "${var.storageName}" //because mailerstorage already taken
     resource_group_name = "${azurerm_resource_group.MailerGroup.name}"
     location = "${var.location}"
     account_tier = "Standard"
@@ -34,7 +34,7 @@ resource "azurerm_app_service_plan" "MailerServicePlan" {
 }
 
 resource "azurerm_function_app" "MailerApp" {
-    name = "MailerAppTest" //because MailerApp already taken
+    name = "${var.appName}" //because MailerApp already taken
     location = "${var.location}"
     resource_group_name = "${azurerm_resource_group.MailerGroup.name}"
     app_service_plan_id = "${azurerm_app_service_plan.MailerServicePlan.id}"
