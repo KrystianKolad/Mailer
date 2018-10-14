@@ -27,10 +27,4 @@ namespace Mailer.Functions
             log.LogInformation("Successfully send email");
         }
     }
-    public class EmailMessage
-    {
-        public string To { get; set; }
-        public string Body { get; set; }
-        public string Subject { get; set; }
-    }
 }

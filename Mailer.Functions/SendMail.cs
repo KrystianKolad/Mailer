@@ -23,6 +23,10 @@ namespace Mailer.Functions
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            if(JsonConvert.DeserializeObject<EmailMessage>(requestBody) == null)
+            {
+                return new BadRequestResult();
+            }
 
             destinationQueue.Add(requestBody);
 
