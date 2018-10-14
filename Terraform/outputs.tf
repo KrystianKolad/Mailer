@@ -5,3 +5,7 @@ output "Storage connection string" {
 output "Queue name" {
   value = "${azurerm_storage_queue.MailerQueue.name}"
 }
+
+output "App hostname" {
+  value = "${azurerm_function_app.MailerApp.default_hostname}"
+}

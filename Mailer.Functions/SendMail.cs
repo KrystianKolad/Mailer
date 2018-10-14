@@ -15,7 +15,10 @@ namespace Mailer.Functions
     public static class SendMail
     {
         [FunctionName("SendMail")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, 
+            [Queue("mailerqueue")] ICollector<string> destinationQueue, 
+            ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -24,6 +27,8 @@ namespace Mailer.Functions
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
+
+            destinationQueue.Add(name);
 
             return name != null
                 ? (ActionResult)new OkObjectResult($"Hello, {name}")
