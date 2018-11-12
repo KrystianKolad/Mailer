@@ -1,0 +1,33 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<h1>Hello, world!</h1>
+
+Send your Email! <br/> <br/>
+
+<input placeholder="Recipient" type="email" bind="@(message.To)" /> <br/>
+<input placeholder="Subject" bind="@(message.Subject)" /> <br/>
+<input placeholder="Body" bind="@(message.Body)" /> <br/>
+<button onclick="@SendEmail">Send Email</button>
+
+@functions{
+
+    EmailMessage message;
+
+    protected override void OnInit()
+    {
+        message = new EmailMessage();
+    }
+
+    async Task SendEmail()
+    {
+        await Http.SendJsonAsync(HttpMethod.Post, "https://MailerAppTest.azurewebsites.net/api/SendMail",message);
+    }
+
+    class EmailMessage
+    {
+        public string To { get; set; }
+        public string Body { get; set; }
+        public string Subject { get; set; }
+    }
+}
